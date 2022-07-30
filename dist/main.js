@@ -1,94 +1,96 @@
+/*
+ * ATTENTION: The "eval" devtool has been used (maybe by default in mode: "development").
+ * This devtool is neither made for production nor for readable output files.
+ * It uses "eval()" calls to create a separate source file in the browser devtools.
+ * If you are trying to read the output file, select a different devtool (https://webpack.js.org/configuration/devtool/)
+ * or disable the default devtool with "devtool: false".
+ * If you are looking for production-ready output files, see mode: "production" (https://webpack.js.org/configuration/mode/).
+ */
 /******/ (() => { // webpackBootstrap
-var __webpack_exports__ = {};
+/******/ 	"use strict";
+/******/ 	var __webpack_modules__ = ({
+
+/***/ "./src/index.js":
 /*!**********************!*\
   !*** ./src/index.js ***!
   \**********************/
-async function geolocateAPICall() {
-  const locationInput = document.querySelector('#location').value;
-  const geoResponse = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${locationInput}&limit=1&appid=384c33a1f7efd974300cacdf649178d3`, { mode: 'cors' });
-  const geoJson = await geoResponse.json();
-  return geoJson;
-}
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-async function currentWeatherAPICall(latitude, longitude) {
-  const currentWeatherResponse = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=384c33a1f7efd974300cacdf649178d3`, { mode: 'cors' });
-  const currentWeatherJson = await currentWeatherResponse.json();
-  console.log(latitude, longitude);
-  return currentWeatherJson;
-}
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _js_apiFunctions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./js/apiFunctions */ \"./src/js/apiFunctions.js\");\n\n\nconst form = document.querySelector('#locationForm');\n\nform.addEventListener('submit', (event) => {\n  event.preventDefault();\n  _js_apiFunctions__WEBPACK_IMPORTED_MODULE_0__.getCurrentWeather()\n    .then((obj) => {\n      console.log(obj);\n    });\n});\n\n\n//# sourceURL=webpack://weather-app/./src/index.js?");
 
-function getCurrentWeather() {
-  geolocateAPICall()
-    .then((json) => currentWeatherAPICall(json[0].lat, json[0].lon))
+/***/ }),
 
-    .then((currentWeatherJson) => {
-      // const { dt } = currentWeatherJson;
-      const feelLike = currentWeatherJson.main.feels_like;
-      const { temp } = currentWeatherJson.main;
-      const humid = currentWeatherJson.main.humidity;
-      const tempMax = currentWeatherJson.main.temp_max;
-      const tempMin = currentWeatherJson.main.temp_min;
+/***/ "./src/js/apiFunctions.js":
+/*!********************************!*\
+  !*** ./src/js/apiFunctions.js ***!
+  \********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-      const weatherState = currentWeatherJson.weather[0].main;
-      const weatherId = currentWeatherJson.weather[0].id;
-      const weatherDesc = currentWeatherJson.weather[0].description;
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"currentWeatherAPICall\": () => (/* binding */ currentWeatherAPICall),\n/* harmony export */   \"geolocateAPICall\": () => (/* binding */ geolocateAPICall),\n/* harmony export */   \"getCurrentWeather\": () => (/* binding */ getCurrentWeather)\n/* harmony export */ });\nasync function geolocateAPICall() {\n  const locationInput = document.querySelector('#location').value;\n  const geoResponse = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${locationInput}&limit=1&appid=384c33a1f7efd974300cacdf649178d3`, { mode: 'cors' });\n  const geoJson = await geoResponse.json();\n  return geoJson;\n}\n\nasync function currentWeatherAPICall(latitude, longitude) {\n  const currentWeatherResponse = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=384c33a1f7efd974300cacdf649178d3`, { mode: 'cors' });\n  const currentWeatherJson = await currentWeatherResponse.json();\n  return currentWeatherJson;\n}\n\nasync function getCurrentWeather() {\n  let currentWeatherJson;\n  try {\n    const json = await geolocateAPICall();\n    if (json.length > 0) {\n      currentWeatherJson = await currentWeatherAPICall(json[0].lat, json[0].lon);\n    } else {\n      throw new Error('Can\\'t find location with that name');\n    }\n  } catch (err) {\n    console.error(err);\n  }\n  if (currentWeatherJson) {\n  // const { dt } = currentWeatherJson;\n    const feelLike = currentWeatherJson.main.feels_like;\n    const { temp } = currentWeatherJson.main;\n    const humid = currentWeatherJson.main.humidity;\n    const tempMax = currentWeatherJson.main.temp_max;\n    const tempMin = currentWeatherJson.main.temp_min;\n\n    const weatherState = currentWeatherJson.weather[0].main;\n    const weatherId = currentWeatherJson.weather[0].id;\n    const weatherDesc = currentWeatherJson.weather[0].description;\n\n    const windMPS = currentWeatherJson.wind.speed;\n    const windDeg = currentWeatherJson.wind.deg;\n\n    const weatherObj = {\n      temperature: temp,\n      temperatureFeel: feelLike,\n      temperatureMax: tempMax,\n      temperatureMin: tempMin,\n      humidity: humid,\n      weather: weatherState,\n      description: weatherDesc,\n      id: weatherId,\n      windSpeed: windMPS,\n      windDegree: windDeg,\n    };\n    return weatherObj;\n  }\n}\n\n// function hourlyWeatherAPI() {\n//   // const weatherResponse = await fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&units=metric&appid=384c33a1f7efd974300cacdf649178d3`, { mode: 'cors' });\n//   // const weatherJson = await weatherResponse.json();\n\n//   //    Date, and Hour\n//   const { dt } = weatherJson.list[0];\n\n//   //    Pop(Probability of Rain).\n//   const { pop } = weatherJson.list[0];\n\n//   //    Check for Rain or Snow and display info.\n//   if (weatherJson.list[0].rain) {\n//     const rainVolume = weatherJson.list[0].rain['3h'];\n//     console.log(rainVolume);\n//   }\n\n//   //    Get Temperature, Feels like Temp, Humidity\n//   const { temp } = weatherJson.list[0].main;\n//   const { feels_like: feelsLike } = weatherJson.list[0].main;\n//   const { humidity } = weatherJson.list[0].main;\n\n//   //    Weather ID, Weather State\n//   const { id: weatherID } = weatherJson.list[0].weather[0];\n//   const { description: weatherDesc } = weatherJson.list[0].weather[0];\n//   const { main: weatherMain } = weatherJson.list[0].weather[0];\n\n//   //    Pass info to display to HTML\n// }\n\n\n\n\n//# sourceURL=webpack://weather-app/./src/js/apiFunctions.js?");
 
-      const windMPS = currentWeatherJson.wind.speed;
-      const windDeg = currentWeatherJson.wind.deg;
+/***/ })
 
-      const weatherObj = {
-        temperature: temp,
-        temperatureFeel: feelLike,
-        temperatureMax: tempMax,
-        temperatureMin: tempMin,
-        humidity: humid,
-        weather: weatherState,
-        description: weatherDesc,
-        id: weatherId,
-        windSpeed: windMPS,
-        windDegree: windDeg,
-      };
-
-      console.log(weatherObj);
-      return weatherObj;
-    });
-}
-
-// function hourlyWeatherAPI() {
-//   // const weatherResponse = await fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&units=metric&appid=384c33a1f7efd974300cacdf649178d3`, { mode: 'cors' });
-//   // const weatherJson = await weatherResponse.json();
-
-//   //    Date, and Hour
-//   const { dt } = weatherJson.list[0];
-
-//   //    Pop(Probability of Rain).
-//   const { pop } = weatherJson.list[0];
-
-//   //    Check for Rain or Snow and display info.
-//   if (weatherJson.list[0].rain) {
-//     const rainVolume = weatherJson.list[0].rain['3h'];
-//     console.log(rainVolume);
-//   }
-
-//   //    Get Temperature, Feels like Temp, Humidity
-//   const { temp } = weatherJson.list[0].main;
-//   const { feels_like: feelsLike } = weatherJson.list[0].main;
-//   const { humidity } = weatherJson.list[0].main;
-
-//   //    Weather ID, Weather State
-//   const { id: weatherID } = weatherJson.list[0].weather[0];
-//   const { description: weatherDesc } = weatherJson.list[0].weather[0];
-//   const { main: weatherMain } = weatherJson.list[0].weather[0];
-
-//   //    Pass info to display to HTML
-// }
-
-const form = document.querySelector('#locationForm');
-form.addEventListener('submit', (event) => {
-  event.preventDefault();
-  getCurrentWeather();
-});
-
+/******/ 	});
+/************************************************************************/
+/******/ 	// The module cache
+/******/ 	var __webpack_module_cache__ = {};
+/******/ 	
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/ 		// Check if module is in cache
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
+/******/ 			exports: {}
+/******/ 		};
+/******/ 	
+/******/ 		// Execute the module function
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+/******/ 	
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	(() => {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = (exports, definition) => {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	(() => {
+/******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	(() => {
+/******/ 		// define __esModule on exports
+/******/ 		__webpack_require__.r = (exports) => {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/************************************************************************/
+/******/ 	
+/******/ 	// startup
+/******/ 	// Load entry module and return exports
+/******/ 	// This entry module can't be inlined because the eval devtool is used.
+/******/ 	var __webpack_exports__ = __webpack_require__("./src/index.js");
+/******/ 	
 /******/ })()
 ;
-//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoibWFpbi5qcyIsIm1hcHBpbmdzIjoiOzs7OztBQUFBO0FBQ0E7QUFDQSxvRkFBb0YsY0FBYyxvREFBb0QsY0FBYztBQUNwSztBQUNBO0FBQ0E7O0FBRUE7QUFDQSxvR0FBb0csU0FBUyxPQUFPLFVBQVUsNENBQTRDLGNBQWM7QUFDeEw7QUFDQTtBQUNBO0FBQ0E7O0FBRUE7QUFDQTtBQUNBOztBQUVBO0FBQ0EsaUJBQWlCLEtBQUs7QUFDdEI7QUFDQSxjQUFjLE9BQU87QUFDckI7QUFDQTtBQUNBOztBQUVBO0FBQ0E7QUFDQTs7QUFFQTtBQUNBOztBQUVBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTs7QUFFQTtBQUNBO0FBQ0EsS0FBSztBQUNMOztBQUVBO0FBQ0Esb0dBQW9HLFNBQVMsT0FBTyxVQUFVLHlEQUF5RCxjQUFjO0FBQ3JNOztBQUVBO0FBQ0EsYUFBYSxLQUFLOztBQUVsQjtBQUNBLGFBQWEsTUFBTTs7QUFFbkI7QUFDQTtBQUNBO0FBQ0E7QUFDQTs7QUFFQTtBQUNBLGFBQWEsT0FBTztBQUNwQixhQUFhLHdCQUF3QjtBQUNyQyxhQUFhLFdBQVc7O0FBRXhCO0FBQ0EsYUFBYSxnQkFBZ0I7QUFDN0IsYUFBYSwyQkFBMkI7QUFDeEMsYUFBYSxvQkFBb0I7O0FBRWpDO0FBQ0E7O0FBRUE7QUFDQTtBQUNBO0FBQ0E7QUFDQSxDQUFDIiwic291cmNlcyI6WyJ3ZWJwYWNrOi8vd2VhdGhlci1hcHAvLi9zcmMvaW5kZXguanMiXSwic291cmNlc0NvbnRlbnQiOlsiYXN5bmMgZnVuY3Rpb24gZ2VvbG9jYXRlQVBJQ2FsbCgpIHtcbiAgY29uc3QgbG9jYXRpb25JbnB1dCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoJyNsb2NhdGlvbicpLnZhbHVlO1xuICBjb25zdCBnZW9SZXNwb25zZSA9IGF3YWl0IGZldGNoKGBodHRwOi8vYXBpLm9wZW53ZWF0aGVybWFwLm9yZy9nZW8vMS4wL2RpcmVjdD9xPSR7bG9jYXRpb25JbnB1dH0mbGltaXQ9MSZhcHBpZD0zODRjMzNhMWY3ZWZkOTc0MzAwY2FjZGY2NDkxNzhkM2AsIHsgbW9kZTogJ2NvcnMnIH0pO1xuICBjb25zdCBnZW9Kc29uID0gYXdhaXQgZ2VvUmVzcG9uc2UuanNvbigpO1xuICByZXR1cm4gZ2VvSnNvbjtcbn1cblxuYXN5bmMgZnVuY3Rpb24gY3VycmVudFdlYXRoZXJBUElDYWxsKGxhdGl0dWRlLCBsb25naXR1ZGUpIHtcbiAgY29uc3QgY3VycmVudFdlYXRoZXJSZXNwb25zZSA9IGF3YWl0IGZldGNoKGBodHRwczovL2FwaS5vcGVud2VhdGhlcm1hcC5vcmcvZGF0YS8yLjUvd2VhdGhlcj9sYXQ9JHtsYXRpdHVkZX0mbG9uPSR7bG9uZ2l0dWRlfSZhcHBpZD0zODRjMzNhMWY3ZWZkOTc0MzAwY2FjZGY2NDkxNzhkM2AsIHsgbW9kZTogJ2NvcnMnIH0pO1xuICBjb25zdCBjdXJyZW50V2VhdGhlckpzb24gPSBhd2FpdCBjdXJyZW50V2VhdGhlclJlc3BvbnNlLmpzb24oKTtcbiAgY29uc29sZS5sb2cobGF0aXR1ZGUsIGxvbmdpdHVkZSk7XG4gIHJldHVybiBjdXJyZW50V2VhdGhlckpzb247XG59XG5cbmZ1bmN0aW9uIGdldEN1cnJlbnRXZWF0aGVyKCkge1xuICBnZW9sb2NhdGVBUElDYWxsKClcbiAgICAudGhlbigoanNvbikgPT4gY3VycmVudFdlYXRoZXJBUElDYWxsKGpzb25bMF0ubGF0LCBqc29uWzBdLmxvbikpXG5cbiAgICAudGhlbigoY3VycmVudFdlYXRoZXJKc29uKSA9PiB7XG4gICAgICAvLyBjb25zdCB7IGR0IH0gPSBjdXJyZW50V2VhdGhlckpzb247XG4gICAgICBjb25zdCBmZWVsTGlrZSA9IGN1cnJlbnRXZWF0aGVySnNvbi5tYWluLmZlZWxzX2xpa2U7XG4gICAgICBjb25zdCB7IHRlbXAgfSA9IGN1cnJlbnRXZWF0aGVySnNvbi5tYWluO1xuICAgICAgY29uc3QgaHVtaWQgPSBjdXJyZW50V2VhdGhlckpzb24ubWFpbi5odW1pZGl0eTtcbiAgICAgIGNvbnN0IHRlbXBNYXggPSBjdXJyZW50V2VhdGhlckpzb24ubWFpbi50ZW1wX21heDtcbiAgICAgIGNvbnN0IHRlbXBNaW4gPSBjdXJyZW50V2VhdGhlckpzb24ubWFpbi50ZW1wX21pbjtcblxuICAgICAgY29uc3Qgd2VhdGhlclN0YXRlID0gY3VycmVudFdlYXRoZXJKc29uLndlYXRoZXJbMF0ubWFpbjtcbiAgICAgIGNvbnN0IHdlYXRoZXJJZCA9IGN1cnJlbnRXZWF0aGVySnNvbi53ZWF0aGVyWzBdLmlkO1xuICAgICAgY29uc3Qgd2VhdGhlckRlc2MgPSBjdXJyZW50V2VhdGhlckpzb24ud2VhdGhlclswXS5kZXNjcmlwdGlvbjtcblxuICAgICAgY29uc3Qgd2luZE1QUyA9IGN1cnJlbnRXZWF0aGVySnNvbi53aW5kLnNwZWVkO1xuICAgICAgY29uc3Qgd2luZERlZyA9IGN1cnJlbnRXZWF0aGVySnNvbi53aW5kLmRlZztcblxuICAgICAgY29uc3Qgd2VhdGhlck9iaiA9IHtcbiAgICAgICAgdGVtcGVyYXR1cmU6IHRlbXAsXG4gICAgICAgIHRlbXBlcmF0dXJlRmVlbDogZmVlbExpa2UsXG4gICAgICAgIHRlbXBlcmF0dXJlTWF4OiB0ZW1wTWF4LFxuICAgICAgICB0ZW1wZXJhdHVyZU1pbjogdGVtcE1pbixcbiAgICAgICAgaHVtaWRpdHk6IGh1bWlkLFxuICAgICAgICB3ZWF0aGVyOiB3ZWF0aGVyU3RhdGUsXG4gICAgICAgIGRlc2NyaXB0aW9uOiB3ZWF0aGVyRGVzYyxcbiAgICAgICAgaWQ6IHdlYXRoZXJJZCxcbiAgICAgICAgd2luZFNwZWVkOiB3aW5kTVBTLFxuICAgICAgICB3aW5kRGVncmVlOiB3aW5kRGVnLFxuICAgICAgfTtcblxuICAgICAgY29uc29sZS5sb2cod2VhdGhlck9iaik7XG4gICAgICByZXR1cm4gd2VhdGhlck9iajtcbiAgICB9KTtcbn1cblxuLy8gZnVuY3Rpb24gaG91cmx5V2VhdGhlckFQSSgpIHtcbi8vICAgLy8gY29uc3Qgd2VhdGhlclJlc3BvbnNlID0gYXdhaXQgZmV0Y2goYGh0dHBzOi8vYXBpLm9wZW53ZWF0aGVybWFwLm9yZy9kYXRhLzIuNS9mb3JlY2FzdD9sYXQ9JHtsYXRpdHVkZX0mbG9uPSR7bG9uZ2l0dWRlfSZ1bml0cz1tZXRyaWMmYXBwaWQ9Mzg0YzMzYTFmN2VmZDk3NDMwMGNhY2RmNjQ5MTc4ZDNgLCB7IG1vZGU6ICdjb3JzJyB9KTtcbi8vICAgLy8gY29uc3Qgd2VhdGhlckpzb24gPSBhd2FpdCB3ZWF0aGVyUmVzcG9uc2UuanNvbigpO1xuXG4vLyAgIC8vICAgIERhdGUsIGFuZCBIb3VyXG4vLyAgIGNvbnN0IHsgZHQgfSA9IHdlYXRoZXJKc29uLmxpc3RbMF07XG5cbi8vICAgLy8gICAgUG9wKFByb2JhYmlsaXR5IG9mIFJhaW4pLlxuLy8gICBjb25zdCB7IHBvcCB9ID0gd2VhdGhlckpzb24ubGlzdFswXTtcblxuLy8gICAvLyAgICBDaGVjayBmb3IgUmFpbiBvciBTbm93IGFuZCBkaXNwbGF5IGluZm8uXG4vLyAgIGlmICh3ZWF0aGVySnNvbi5saXN0WzBdLnJhaW4pIHtcbi8vICAgICBjb25zdCByYWluVm9sdW1lID0gd2VhdGhlckpzb24ubGlzdFswXS5yYWluWyczaCddO1xuLy8gICAgIGNvbnNvbGUubG9nKHJhaW5Wb2x1bWUpO1xuLy8gICB9XG5cbi8vICAgLy8gICAgR2V0IFRlbXBlcmF0dXJlLCBGZWVscyBsaWtlIFRlbXAsIEh1bWlkaXR5XG4vLyAgIGNvbnN0IHsgdGVtcCB9ID0gd2VhdGhlckpzb24ubGlzdFswXS5tYWluO1xuLy8gICBjb25zdCB7IGZlZWxzX2xpa2U6IGZlZWxzTGlrZSB9ID0gd2VhdGhlckpzb24ubGlzdFswXS5tYWluO1xuLy8gICBjb25zdCB7IGh1bWlkaXR5IH0gPSB3ZWF0aGVySnNvbi5saXN0WzBdLm1haW47XG5cbi8vICAgLy8gICAgV2VhdGhlciBJRCwgV2VhdGhlciBTdGF0ZVxuLy8gICBjb25zdCB7IGlkOiB3ZWF0aGVySUQgfSA9IHdlYXRoZXJKc29uLmxpc3RbMF0ud2VhdGhlclswXTtcbi8vICAgY29uc3QgeyBkZXNjcmlwdGlvbjogd2VhdGhlckRlc2MgfSA9IHdlYXRoZXJKc29uLmxpc3RbMF0ud2VhdGhlclswXTtcbi8vICAgY29uc3QgeyBtYWluOiB3ZWF0aGVyTWFpbiB9ID0gd2VhdGhlckpzb24ubGlzdFswXS53ZWF0aGVyWzBdO1xuXG4vLyAgIC8vICAgIFBhc3MgaW5mbyB0byBkaXNwbGF5IHRvIEhUTUxcbi8vIH1cblxuY29uc3QgZm9ybSA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoJyNsb2NhdGlvbkZvcm0nKTtcbmZvcm0uYWRkRXZlbnRMaXN0ZW5lcignc3VibWl0JywgKGV2ZW50KSA9PiB7XG4gIGV2ZW50LnByZXZlbnREZWZhdWx0KCk7XG4gIGdldEN1cnJlbnRXZWF0aGVyKCk7XG59KTtcbiJdLCJuYW1lcyI6W10sInNvdXJjZVJvb3QiOiIifQ==

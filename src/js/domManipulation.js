@@ -1,7 +1,6 @@
 function displayCurrentWeather(weatherObj) {
   const city = document.querySelector('#city');
   const weather = document.querySelector('#weather');
-  const weatherDesc = document.querySelector('#weatherDesc');
   const temp = document.querySelector('#temp');
   const tempFeel = document.querySelector('#tempFeel');
   const wind = document.querySelector('#wind');
@@ -16,11 +15,10 @@ function displayCurrentWeather(weatherObj) {
 
   city.textContent = weatherObj.name;
   weather.textContent = weatherObj.weather;
-  weatherDesc.textContent = weatherObj.description;
-  temp.textContent = `${weatherObj.temperature} ${celOrFar}`;
-  tempFeel.textContent = `${weatherObj.temperatureFeel} ${celOrFar}`;
-  wind.textContent = `${weatherObj.windSpeed} ${milesPhOrMeterPh}`;
-  windDeg.textContent = `${weatherObj.windDegree} \u00B0`;
+  temp.textContent = `Temperature: ${weatherObj.temperature} ${celOrFar}`;
+  tempFeel.textContent = `Feels Like: ${weatherObj.temperatureFeel} ${celOrFar}`;
+  wind.textContent = `Wind Speed: ${weatherObj.windSpeed} ${milesPhOrMeterPh}`;
+  windDeg.textContent = `Wind Degree: ${weatherObj.windDegree} \u00B0`;
 }
 
 function displayHourlyWeather() {

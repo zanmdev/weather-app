@@ -39,7 +39,6 @@ async function getCurrentWeather() {
 
     const weatherState = currentWeatherJson.weather[0].main;
     const weatherId = currentWeatherJson.weather[0].id;
-    const weatherDesc = currentWeatherJson.weather[0].description;
 
     const windMPS = currentWeatherJson.wind.speed;
     const windDeg = currentWeatherJson.wind.deg;
@@ -52,7 +51,6 @@ async function getCurrentWeather() {
       temperatureMin: tempMin,
       humidity: humid,
       weather: weatherState,
-      description: weatherDesc,
       id: weatherId,
       windSpeed: windMPS,
       windDegree: windDeg,

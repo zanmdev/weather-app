@@ -6,7 +6,12 @@ async function geolocateAPICall() {
 }
 
 async function currentWeatherAPICall(latitude, longitude) {
-  const currentWeatherResponse = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=384c33a1f7efd974300cacdf649178d3`, { mode: 'cors' });
+  let metricOrImperial = 'metric';
+  const { checked } = document.querySelector('#degree');
+  if (checked) {
+    metricOrImperial = 'imperial';
+  }
+  const currentWeatherResponse = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=${metricOrImperial}&appid=384c33a1f7efd974300cacdf649178d3`, { mode: 'cors' });
   const currentWeatherJson = await currentWeatherResponse.json();
   return currentWeatherJson;
 }

@@ -2,7 +2,7 @@ import setWeatherIcon from './weatherIconHandler';
 
 function displayCurrentWeather(weatherObj) {
   const city = document.querySelector('#city');
-  const icon = setWeatherIcon(weatherObj.id);
+  const icon = document.querySelector('#icon');
   const weather = document.querySelector('#weather');
   const temp = document.querySelector('#temp');
   const tempFeel = document.querySelector('#tempFeel');
@@ -17,7 +17,7 @@ function displayCurrentWeather(weatherObj) {
   }
 
   city.textContent = weatherObj.name;
-
+  icon.src = setWeatherIcon(weatherObj.id);
   weather.textContent = weatherObj.weather;
   temp.textContent = `Temperature: ${weatherObj.temperature} ${celOrFar}`;
   tempFeel.textContent = `Feels Like: ${weatherObj.temperatureFeel} ${celOrFar}`;

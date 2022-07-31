@@ -5,22 +5,25 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
+    <header id="header">
         <form action="" id="locationForm">
             <label for="location"> Location:
                 <input type="text" name="location" id="location">
             </label>
             <button id="search">Search</button>
+        </form>
             <label for="degree">Fahrenheit:
                 <input type="checkbox" name="degree" id="degree">
             </label>
-        </form>
+
     </header>
 
     <div class="weather">
         <h3 id="city"></h3>
+        <img id="icon" src="" alt="">
         <p id="weather"></p>
         <p id="weatherDesc"></p>
         <p id="temp"></p>

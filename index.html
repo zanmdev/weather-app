@@ -7,15 +7,29 @@
     <title>Document</title>
 </head>
 <body>
-    <form action="" id="locationForm">
-        <label for="location"> Location:
-            <input type="text" name="location" id="location">
-        </label>
-        <label for="degree">Fahrenheit:
-            <input type="checkbox" name="degree" id="degree">
-        </label>
-        <button id="search">Search</button>
-    </form>
+    <nav>
+        <form action="" id="locationForm">
+            <label for="location"> Location:
+                <input type="text" name="location" id="location">
+            </label>
+            <button id="search">Search</button>
+            <label for="degree">Fahrenheit:
+                <input type="checkbox" name="degree" id="degree">
+            </label>
+
+        </form>
+    </nav>
+    <div class="weather">
+        <h3 id="city"></h3>
+        <p id="weather"></p>
+        <p id="weatherDesc"></p>
+        <p id="temp"></p>
+        <p id="tempFeel"></p>
+        <p id="wind"></p>
+        <p id="windDeg"></p>
+    </div>
+
+    
     <script src="main.js"></script>
 </body>
 </html>

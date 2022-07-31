@@ -30,6 +30,7 @@ async function getCurrentWeather() {
   }
   if (currentWeatherJson) {
   // const { dt } = currentWeatherJson;
+    const city = currentWeatherJson.name;
     const feelLike = currentWeatherJson.main.feels_like;
     const { temp } = currentWeatherJson.main;
     const humid = currentWeatherJson.main.humidity;
@@ -44,6 +45,7 @@ async function getCurrentWeather() {
     const windDeg = currentWeatherJson.wind.deg;
 
     const weatherObj = {
+      name: city,
       temperature: temp,
       temperatureFeel: feelLike,
       temperatureMax: tempMax,
@@ -55,6 +57,7 @@ async function getCurrentWeather() {
       windSpeed: windMPS,
       windDegree: windDeg,
     };
+    console.log(currentWeatherJson);
     return weatherObj;
   }
 }

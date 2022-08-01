@@ -11,6 +11,7 @@ async function currentWeatherAPICall(latitude, longitude) {
   if (checked) {
     metricOrImperial = 'imperial';
   }
+  console.log(`Lat:${latitude} , Lon: ${longitude}`);
   const currentWeatherResponse = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=${metricOrImperial}&appid=384c33a1f7efd974300cacdf649178d3`, { mode: 'cors' });
   const currentWeatherJson = await currentWeatherResponse.json();
   return currentWeatherJson;
@@ -27,6 +28,7 @@ async function getCurrentWeather() {
     }
   } catch (err) {
     console.error(err);
+    alert(err);
   }
   if (currentWeatherJson) {
   // const { dt } = currentWeatherJson;
@@ -39,6 +41,7 @@ async function getCurrentWeather() {
 
     const weatherState = currentWeatherJson.weather[0].main;
     const weatherId = currentWeatherJson.weather[0].id;
+    const iconId = currentWeatherJson.weather[0].icon;
 
     const windMPS = currentWeatherJson.wind.speed;
     const windDeg = currentWeatherJson.wind.deg;
@@ -52,6 +55,7 @@ async function getCurrentWeather() {
       humidity: humid,
       weather: weatherState,
       id: weatherId,
+      icon: iconId,
       windSpeed: windMPS,
       windDegree: windDeg,
     };

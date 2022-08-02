@@ -53,6 +53,7 @@ async function currentWeatherAPICall(latitude, longitude) {
 
 async function hourlyWeatherAPICall(latitude, longitude) {
   const metricOrImperial = getUnits();
+  console.log(metricOrImperial);
   const weatherResponse = await fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&units=${metricOrImperial}&appid=384c33a1f7efd974300cacdf649178d3`, { mode: 'cors' });
   const weatherJson = await weatherResponse.json();
   return weatherJson;

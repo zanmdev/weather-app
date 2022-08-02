@@ -32,6 +32,7 @@ function displayCurrentWeather(weatherObj) {
 
 function displayHourlyWeather(hourlyWeatherList) {
   const tableBody = document.querySelector('.body-table');
+  tableBody.innerHTML = '';
   hourlyWeatherList.forEach((weatherObj) => {
     const tableRow = document.createElement('tr');
     const tdTime = document.createElement('td');

@@ -4,7 +4,7 @@
 }
 
 #header{
-    padding: 20px;
+    padding: 35px;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -29,4 +29,8 @@
 #icon{
     height: 75px;
     width: 75px;
+}
+
+.error{
+    border-color: red;
 }

@@ -6,14 +6,17 @@ const form = document.querySelector('#locationForm');
 form.addEventListener('submit', (event) => {
   event.preventDefault();
   const inputBox = document.querySelector('#location');
-  if (inputBox.value === '') { return; } // Set Error handling
-  weatherApi.getCurrentWeather()
-    .then((obj) => {
-      domManipulation.displayCurrentWeather(obj);
-    });
-  weatherApi.getHourlyWeather()
-    .then((obj) => {
-      console.log(obj);
-      domManipulation.displayHourlyWeather(obj);
+  if (inputBox.value === '') {
+    inputBox.classList.add('error');
+    return;
+  }
+  inputBox.classList.remove('error');
+
+  const currentWeatherPromise = weatherApi.getCurrentWeather();
+  const hourlyWeatherPromise = weatherApi.getHourlyWeather();
+  Promise.all([currentWeatherPromise, hourlyWeatherPromise])
+    .then((weatherObjects) => {
+      domManipulation.displayCurrentWeather(weatherObjects[0]);
+      domManipulation.displayHourlyWeather(weatherObjects[1]);
     });
 });

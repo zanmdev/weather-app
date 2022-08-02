@@ -11,4 +11,9 @@ form.addEventListener('submit', (event) => {
     .then((obj) => {
       domManipulation.displayCurrentWeather(obj);
     });
+  weatherApi.getHourlyWeather()
+    .then((obj) => {
+      console.log(obj);
+      domManipulation.displayHourlyWeather(obj);
+    });
 });

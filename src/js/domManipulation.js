@@ -31,6 +31,7 @@ function displayCurrentWeather(weatherObj) {
 }
 
 function displayHourlyWeather(hourlyWeatherList) {
+  const tableContainer = document.querySelector('.hourly-weather');
   const tableBody = document.querySelector('.body-table');
   tableBody.innerHTML = '';
   hourlyWeatherList.forEach((weatherObj) => {
@@ -54,6 +55,8 @@ function displayHourlyWeather(hourlyWeatherList) {
     tdIcon.appendChild(tdIconImg);
     tableRow.append(tdTime, tdIcon, tdTemp, tdWeather, tdFeels, tdWind, tdHumidity);
     tableBody.appendChild(tableRow);
+
+    tableContainer.style.visibility = 'visible';
   });
 }
 

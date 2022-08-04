@@ -12,11 +12,21 @@ form.addEventListener('submit', (event) => {
   }
   inputBox.classList.remove('error');
 
-  const currentWeatherPromise = weatherApi.getCurrentWeather();
-  const hourlyWeatherPromise = weatherApi.getHourlyWeather();
-  Promise.all([currentWeatherPromise, hourlyWeatherPromise])
+  weatherApi.geolocateAPICall()
+
+    .then((json) => {
+      const { lat } = json[0];
+      const { lon } = json[0];
+      const currentWeatherPromise = weatherApi.getCurrentWeather(lat, lon);
+      const hourlyWeatherPromise = weatherApi.getHourlyWeather(lat, lon);
+      return Promise.all([currentWeatherPromise, hourlyWeatherPromise]);
+    })
     .then((weatherObjects) => {
       domManipulation.displayCurrentWeather(weatherObjects[0]);
       domManipulation.displayHourlyWeather(weatherObjects[1]);
+    })
+    .catch((err) => {
+      console.error(err);
+      alert(err);
     });
 });

@@ -1,4 +1,5 @@
 function getUnits() {
+  // Check the checkbox status to set what units of measurement to use
   const { checked } = document.querySelector('#degree');
   let metricOrImperial = 'metric';
   if (checked) {
@@ -8,6 +9,7 @@ function getUnits() {
 }
 
 function createWeatherObject(currentWeatherJson) {
+  // Pass data from the weather API into objects to be used in DOM manipulation
   const feelLike = currentWeatherJson.main.feels_like;
   const { temp } = currentWeatherJson.main;
   const humid = currentWeatherJson.main.humidity;
@@ -37,14 +39,22 @@ function createWeatherObject(currentWeatherJson) {
 }
 
 async function geolocateAPICall() {
+  // Call the geolocate API function to get the Latitude and Longitude
+
   const locationInput = document.querySelector('#location').value;
   const geoResponse = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${locationInput}&limit=1&appid=384c33a1f7efd974300cacdf649178d3`, { mode: 'cors' });
+
+  console.log(geoResponse);
   const geoJson = await geoResponse.json();
+  console.log(geoJson);
+  if (geoJson.length === 0) {
+    throw new Error('Can\'t find the latitude and longitude of that location');
+  }
   return geoJson;
 }
 
 async function currentWeatherAPICall(latitude, longitude) {
-  console.log(`Lat:${latitude} , Lon: ${longitude}`);
+  // Call the weather API and get the current weather.
   const metricOrImperial = getUnits();
   const currentWeatherResponse = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=${metricOrImperial}&appid=384c33a1f7efd974300cacdf649178d3`, { mode: 'cors' });
   const currentWeatherJson = await currentWeatherResponse.json();
@@ -52,6 +62,7 @@ async function currentWeatherAPICall(latitude, longitude) {
 }
 
 async function hourlyWeatherAPICall(latitude, longitude) {
+  // Call the weather API to get the next 4 days weather in hour format
   const metricOrImperial = getUnits();
   console.log(metricOrImperial);
   const weatherResponse = await fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&units=${metricOrImperial}&appid=384c33a1f7efd974300cacdf649178d3`, { mode: 'cors' });
@@ -59,19 +70,9 @@ async function hourlyWeatherAPICall(latitude, longitude) {
   return weatherJson;
 }
 
-async function getCurrentWeather() {
-  let currentWeatherJson;
-  try {
-    const json = await geolocateAPICall();
-    if (json.length > 0) {
-      currentWeatherJson = await currentWeatherAPICall(json[0].lat, json[0].lon);
-    } else {
-      throw new Error('Can\'t find location with that name');
-    }
-  } catch (err) {
-    console.error(err);
-    alert(err);
-  }
+async function getCurrentWeather(latitude, longitude) {
+  const currentWeatherJson = await currentWeatherAPICall(latitude, longitude);
+
   if (currentWeatherJson) {
     const weatherObj = createWeatherObject(currentWeatherJson);
     weatherObj.city = currentWeatherJson.name;
@@ -79,23 +80,11 @@ async function getCurrentWeather() {
   }
 }
 
-async function getHourlyWeather() {
-  let hourlyWeatherJson;
-  try {
-    const json = await geolocateAPICall();
-    if (json.length > 0) {
-      hourlyWeatherJson = await hourlyWeatherAPICall(json[0].lat, json[0].lon);
-    } else {
-      throw new Error('Can\'t find location with that name');
-    }
-  } catch (err) {
-    console.error(err);
-    alert(err);
-  }
+async function getHourlyWeather(latitude, longitude) {
+  const hourlyWeatherJson = await hourlyWeatherAPICall(latitude, longitude);
 
   if (hourlyWeatherJson) {
     const hourlyWeatherList = [];
-    console.log(hourlyWeatherJson);
     const weatherList = hourlyWeatherJson.list;
     weatherList.forEach((hourlyWeather) => {
       const weatherObj = createWeatherObject(hourlyWeather);

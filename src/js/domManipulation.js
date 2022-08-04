@@ -11,13 +11,14 @@ function displayCurrentWeather(weatherObj) {
   const wind = document.querySelector('#wind');
   const windDeg = document.querySelector('#windDeg');
   const checkbox = document.querySelector('#degree');
+  const locationText = document.querySelector('#location').value;
   let celOrFar = '\u2103';
   let milesPhOrMeterPh = 'm/h';
   if (checkbox.checked) {
     celOrFar = '\u2109';
     milesPhOrMeterPh = 'mph';
   }
-  city.textContent = weatherObj.name;
+  city.textContent = locationText;
 
   icon.src = setWeatherIcon(weatherObj.icon);
   weather.textContent = weatherObj.weather;
@@ -32,7 +33,7 @@ function displayCurrentWeather(weatherObj) {
 
 function displayHourlyWeather(hourlyWeatherList) {
   const tableContainer = document.querySelector('.hourly-weather');
-  const tableBody = document.querySelector('.body-table');
+  const tableBody = document.querySelector('.table-body');
   tableBody.innerHTML = '';
   hourlyWeatherList.forEach((weatherObj) => {
     const tableRow = document.createElement('tr');
@@ -44,8 +45,13 @@ function displayHourlyWeather(hourlyWeatherList) {
     const tdWind = document.createElement('td');
     const tdHumidity = document.createElement('td');
     const tdIconImg = document.createElement('img');
+    const date = new Date(weatherObj.date).toLocaleString('default', {
+      weekday: 'short', month: 'short', day: '2-digit', hour: '2-digit', minute: '2-digit',
+    });
 
-    tdTime.textContent = weatherObj.date;
+    console.log(date);
+
+    tdTime.textContent = date;
     tdIconImg.src = setWeatherIcon(weatherObj.icon);
     tdTemp.textContent = weatherObj.temperature;
     tdWeather.textContent = weatherObj.weather;
@@ -57,6 +63,7 @@ function displayHourlyWeather(hourlyWeatherList) {
     tableBody.appendChild(tableRow);
 
     tableContainer.style.visibility = 'visible';
+    tdIconImg.classList.add('table-icon');
   });
 }
 

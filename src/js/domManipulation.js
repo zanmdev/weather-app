@@ -34,7 +34,16 @@ function displayCurrentWeather(weatherObj) {
 function displayHourlyWeather(hourlyWeatherList) {
   const tableContainer = document.querySelector('.hourly-weather');
   const tableBody = document.querySelector('.table-body');
+  const checkbox = document.querySelector('#degree');
+
   tableBody.innerHTML = '';
+  let celOrFar = '\u2103';
+  let milesPhOrMeterPh = 'm/h';
+  if (checkbox.checked) {
+    celOrFar = '\u2109';
+    milesPhOrMeterPh = 'mph';
+  }
+
   hourlyWeatherList.forEach((weatherObj) => {
     const tableRow = document.createElement('tr');
     const tdTime = document.createElement('td');
@@ -49,14 +58,12 @@ function displayHourlyWeather(hourlyWeatherList) {
       weekday: 'short', month: 'short', day: '2-digit', hour: '2-digit', minute: '2-digit',
     });
 
-    console.log(date);
-
     tdTime.textContent = date;
     tdIconImg.src = setWeatherIcon(weatherObj.icon);
-    tdTemp.textContent = weatherObj.temperature;
+    tdTemp.textContent = `${weatherObj.temperature} ${celOrFar}`;
     tdWeather.textContent = weatherObj.weather;
-    tdFeels.textContent = weatherObj.temperatureFeel;
-    tdWind.textContent = weatherObj.windSpeed;
+    tdFeels.textContent = `${weatherObj.temperatureFeel} ${celOrFar}`;
+    tdWind.textContent = `${weatherObj.windSpeed}${milesPhOrMeterPh}`;
     tdHumidity.textContent = `${weatherObj.humidity}%`;
     tdIcon.appendChild(tdIconImg);
     tableRow.append(tdTime, tdIcon, tdTemp, tdWeather, tdFeels, tdWind, tdHumidity);

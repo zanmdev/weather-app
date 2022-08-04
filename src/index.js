@@ -2,6 +2,8 @@ import * as weatherApi from './js/apiFunctions';
 import * as domManipulation from './js/domManipulation';
 
 const form = document.querySelector('#locationForm');
+const check = document.querySelector('#degree');
+check.checked = false;
 
 form.addEventListener('submit', (event) => {
   event.preventDefault();
@@ -28,4 +30,14 @@ form.addEventListener('submit', (event) => {
       console.error(err);
       alert(err);
     });
+});
+
+check.addEventListener('click', () => {
+  const label = document.querySelector('#label');
+  console.log('test');
+  if (check.checked) {
+    label.textContent = '\u2109';
+  } else {
+    label.textContent = '\u2103';
+  }
 });

@@ -13,7 +13,6 @@ form.addEventListener('submit', (event) => {
   inputBox.classList.remove('error');
 
   weatherApi.geolocateAPICall()
-
     .then((json) => {
       const { lat } = json[0];
       const { lon } = json[0];

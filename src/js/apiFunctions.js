@@ -44,9 +44,8 @@ async function geolocateAPICall() {
   const locationInput = document.querySelector('#location').value;
   const geoResponse = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${locationInput}&limit=1&appid=384c33a1f7efd974300cacdf649178d3`, { mode: 'cors' });
 
-  console.log(geoResponse);
   const geoJson = await geoResponse.json();
-  console.log(geoJson);
+
   if (geoJson.length === 0) {
     throw new Error('Can\'t find the latitude and longitude of that location');
   }
@@ -64,7 +63,6 @@ async function currentWeatherAPICall(latitude, longitude) {
 async function hourlyWeatherAPICall(latitude, longitude) {
   // Call the weather API to get the next 4 days weather in hour format
   const metricOrImperial = getUnits();
-  console.log(metricOrImperial);
   const weatherResponse = await fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&units=${metricOrImperial}&appid=384c33a1f7efd974300cacdf649178d3`, { mode: 'cors' });
   const weatherJson = await weatherResponse.json();
   return weatherJson;

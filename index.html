@@ -20,37 +20,38 @@
             </label>
 
     </header>
+    <main>
+        <div class="weather-card">
+            <h3 id="city"></h3>
+            <img id="icon" src="" alt="">
+            <p id="weather"></p>
+            <p id="weatherDesc"></p>
+            <p id="temp"></p>
+            <p id="tempFeel"></p>
+            <p id="humidity"></p>
+            <p id="wind"></p>
+            <p id="windDeg"></p>
+        </div>
 
-    <div class="weather-card">
-        <h3 id="city"></h3>
-        <img id="icon" src="" alt="">
-        <p id="weather"></p>
-        <p id="weatherDesc"></p>
-        <p id="temp"></p>
-        <p id="tempFeel"></p>
-        <p id="humidity"></p>
-        <p id="wind"></p>
-        <p id="windDeg"></p>
-    </div>
+        <div class="hourly-weather">
+            <table class="weather-table">
+                <thead class="table-header">
+                    <tr>
+                        <th>Time</th>
+                        <th>Icon</th>
+                        <th>Temp</th>
+                        <th>Weather</th>
+                        <th>Feels Like</th>
+                        <th>Wind</th>
+                        <th>Humidity</th>
+                    </tr>
+                </thead>
+                <tbody class="table-body">
 
-    <div class="hourly-weather">
-        <table class="weather-table">
-            <thead class="header-table">
-                <tr>
-                    <th>Time</th>
-                    <th>Icon</th>
-                    <th>Temp</th>
-                    <th>Weather</th>
-                    <th>Feels Like</th>
-                    <th>Wind</th>
-                    <th>Humidity</th>
-                </tr>
-            </thead>
-            <tbody class="body-table">
-
-            </tbody>
-        </table>
-    </div>
+                </tbody>
+            </table>
+        </div>
+    </main>
 
     
     <script src="main.js"></script>

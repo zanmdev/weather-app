@@ -19,12 +19,17 @@
     border-color: red;
 }
 
+/* Main Content */
+main{
+    display: flex;
+    justify-content: space-around;
+}
+
 /* Current Weather Card  */
 .weather-card{
-    margin-left: 40px;
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 10px;
     visibility: hidden;
 }
 
@@ -39,6 +44,32 @@
 
 
 /* Hourly Weather Table */
+
 .hourly-weather{
     visibility: hidden;
+    text-align: center;
+    font-size: 14px;
+    width: 800px;
+    height: 500px;
+    overflow: scroll;
+}
+
+.weather-table{
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table-body > tr:hover{
+background-color: rgb(223, 215, 215);
+}
+
+.table-header > tr > th {
+    background-color: rgb(23, 158, 23);
+    color: white;
+    padding: 10px;
+}
+
+.table-icon{
+    width: 75px;
+    height: 75px;
 }

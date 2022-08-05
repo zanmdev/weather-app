@@ -4,6 +4,10 @@
     font-family: 'Roboto', sans-serif;
 }
 
+html, body{
+    height: 100%;
+    overflow: hidden;
+}
 /* Header  */
 #header{
     padding: 10px;
@@ -13,7 +17,7 @@
     align-items: center;
     background-color: rgb(235, 89, 4);
     color: white;
-    margin-bottom: 35px;
+
 }
 
 #locationForm{
@@ -67,8 +71,12 @@ label{
 
 /* Main Content */
 main{
+
+    height: 100%;
     display: flex;
     justify-content: space-around;
+    padding-top: 35px;
+    background-size: cover;
 }
 
 /* Current Weather Card  */
@@ -76,6 +84,12 @@ main{
     display: flex;
     flex-direction: column;
     gap: 10px;
+    visibility: visible;
+    background-color: rgba(0, 0, 0, 0.14);
+    width: 375px;
+    height: fit-content;
+    padding: 10px 25px 25px 25px;
+    font-size: 20px;
     visibility: hidden;
 }
 
@@ -96,7 +110,7 @@ main{
     text-align: center;
     font-size: 14px;
     width: 800px;
-    height: 500px;
+    height: 515px;
     overflow: scroll;
 }
 

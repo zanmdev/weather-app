@@ -61,7 +61,8 @@ label{
 }
 
 .error{
-    border-color: red;
+    border: 3px solid;
+    border-color: rgb(207, 18, 18);
 }
 
 /* Main Content */
@@ -83,8 +84,8 @@ main{
 }
 
 #icon{
-    height: 75px;
-    width: 75px;
+    height: 100px;
+    width: 100px;
 }
 
 
@@ -110,6 +111,11 @@ main{
     background-color: #e7e4e4;
 }
 
+.table-body > tr:nth-child(odd) {
+    background-color: #c5c1c1;
+}
+
+
 .table-body > tr:hover{
     background-color: rgb(160, 155, 155);
     }
@@ -120,6 +126,8 @@ main{
     padding: 10px 0px;
     font-weight: bold;
     font-size: 16px;
+    position: sticky;
+    top: 0;
 }
 
 .table-icon{

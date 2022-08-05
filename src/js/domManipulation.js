@@ -1,4 +1,4 @@
-import setWeatherIcon from './weatherIconHandler';
+import setWeatherIcon from './weatherImageHandler';
 
 function displayCurrentWeather(weatherObj) {
   const weatherCard = document.querySelector('.weather-card');

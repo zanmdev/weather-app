@@ -1,4 +1,10 @@
 import setWeatherIcon from './weatherImageHandler';
+import clear from '../asset/clear.jpg';
+
+function setBackgroundImage(id) {
+  const main = document.querySelector('main');
+  main.style.backgroundImage = `url(${clear})`;
+}
 
 function displayCurrentWeather(weatherObj) {
   const weatherCard = document.querySelector('.weather-card');
@@ -11,14 +17,14 @@ function displayCurrentWeather(weatherObj) {
   const wind = document.querySelector('#wind');
   const windDeg = document.querySelector('#windDeg');
   const checkbox = document.querySelector('#degree');
-  const locationText = document.querySelector('#location').value;
   let celOrFar = '\u2103';
   let milesPhOrMeterPh = 'm/h';
   if (checkbox.checked) {
     celOrFar = '\u2109';
     milesPhOrMeterPh = 'mph';
   }
-  city.textContent = locationText;
+  setBackgroundImage(weatherObj.id);
+  city.textContent = weatherObj.city;
 
   icon.src = setWeatherIcon(weatherObj.icon);
   weather.textContent = weatherObj.weather;

@@ -8,6 +8,7 @@ check.checked = false;
 form.addEventListener('submit', (event) => {
   event.preventDefault();
   const inputBox = document.querySelector('#location');
+  domManipulation.toggleLoading(true);
   if (inputBox.value === '') {
     inputBox.classList.add('error');
     return;
@@ -25,6 +26,7 @@ form.addEventListener('submit', (event) => {
     .then((weatherObjects) => {
       domManipulation.displayCurrentWeather(weatherObjects[0]);
       domManipulation.displayHourlyWeather(weatherObjects[1]);
+      domManipulation.toggleLoading(false);
     })
     .catch((err) => {
       console.error(err);

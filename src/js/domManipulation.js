@@ -74,5 +74,16 @@ function displayHourlyWeather(hourlyWeatherList) {
     tdIconImg.classList.add('table-icon');
   });
 }
+function toggleLoading(start) {
+  const modal = document.querySelector('.modal');
+  const loading = document.querySelector('.loader');
+  if (start) {
+    modal.style.display = 'block';
+    loading.style.animationPlayState = 'running';
+  } else if (!start) {
+    modal.style.display = 'none';
+    loading.style.animationPlayState = 'paused';
+  }
+}
 
-export { displayCurrentWeather, displayHourlyWeather };
+export { displayCurrentWeather, displayHourlyWeather, toggleLoading };

@@ -8,11 +8,11 @@ check.checked = false;
 form.addEventListener('submit', (event) => {
   event.preventDefault();
   const inputBox = document.querySelector('#location');
-  domManipulation.toggleLoading(true);
   if (inputBox.value === '') {
     inputBox.classList.add('error');
     return;
   }
+  domManipulation.toggleLoading(true);
   inputBox.classList.remove('error');
 
   weatherApi.geolocateAPICall()

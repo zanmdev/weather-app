@@ -8,6 +8,41 @@ html, body{
     height: 100%;
     overflow: hidden;
 }
+
+/* Modal   */
+.modal{
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+    display: none;
+    position: fixed;
+    background-color: rgba(0,0,0,0.4);
+}
+
+
+.loader{
+    border: 14px solid #f3f3f3;
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    border-top: 14px solid #1c3fb4;
+    animation: 2s loading linear infinite;
+    animation-play-state: paused;
+    top:50%;
+    left: 50%;
+    position: absolute;
+}
+
+@keyframes loading{
+    from{
+        rotate: 0deg;
+    }
+    to{
+        rotate: 360deg;
+    }
+
+}
+
 /* Header  */
 #header{
     padding: 10px;

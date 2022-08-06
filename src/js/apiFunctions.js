@@ -42,7 +42,7 @@ async function geolocateAPICall() {
   // Call the geolocate API function to get the Latitude and Longitude
 
   const locationInput = document.querySelector('#location').value;
-  const geoResponse = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${locationInput}&limit=1&appid=384c33a1f7efd974300cacdf649178d3`, { mode: 'cors' });
+  const geoResponse = await fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${locationInput}&limit=1&appid=384c33a1f7efd974300cacdf649178d3`, { mode: 'cors' });
 
   const geoJson = await geoResponse.json();
 

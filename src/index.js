@@ -31,6 +31,7 @@ form.addEventListener('submit', (event) => {
     .catch((err) => {
       console.error(err);
       alert(err);
+      domManipulation.toggleLoading(false);
     });
 });
 

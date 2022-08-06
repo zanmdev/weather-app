@@ -1,10 +1,4 @@
-import setWeatherIcon from './weatherImageHandler';
-import clear from '../asset/clear.jpg';
-
-function setBackgroundImage(id) {
-  const main = document.querySelector('main');
-  main.style.backgroundImage = `url(${clear})`;
-}
+import * as weatherImageHandler from './weatherImageHandler';
 
 function displayCurrentWeather(weatherObj) {
   const weatherCard = document.querySelector('.weather-card');
@@ -23,10 +17,12 @@ function displayCurrentWeather(weatherObj) {
     celOrFar = '\u2109';
     milesPhOrMeterPh = 'mph';
   }
-  setBackgroundImage(weatherObj.id);
+  const backgroundId = weatherObj.icon.split('').splice(0, 2).join('');
+  console.log(backgroundId);
+  weatherImageHandler.setBackgroundImage(backgroundId);
   city.textContent = weatherObj.city;
 
-  icon.src = setWeatherIcon(weatherObj.icon);
+  icon.src = weatherImageHandler.setWeatherIcon(weatherObj.icon);
   weather.textContent = weatherObj.weather;
   temp.textContent = `Temperature: ${weatherObj.temperature} ${celOrFar}`;
   tempFeel.textContent = `Feels Like: ${weatherObj.temperatureFeel} ${celOrFar}`;
@@ -49,7 +45,6 @@ function displayHourlyWeather(hourlyWeatherList) {
     celOrFar = '\u2109';
     milesPhOrMeterPh = 'mph';
   }
-
   hourlyWeatherList.forEach((weatherObj) => {
     const tableRow = document.createElement('tr');
     const tdTime = document.createElement('td');
@@ -65,7 +60,7 @@ function displayHourlyWeather(hourlyWeatherList) {
     });
 
     tdTime.textContent = date;
-    tdIconImg.src = setWeatherIcon(weatherObj.icon);
+    tdIconImg.src = weatherImageHandler.setWeatherIcon(weatherObj.icon);
     tdTemp.textContent = `${weatherObj.temperature} ${celOrFar}`;
     tdWeather.textContent = weatherObj.weather;
     tdFeels.textContent = `${weatherObj.temperatureFeel} ${celOrFar}`;
